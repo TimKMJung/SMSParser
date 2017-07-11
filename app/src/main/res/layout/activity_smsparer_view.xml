@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="android.ssoim.com.smsparser.views.SMSParserView">
+
+    <Button
+        android:id="@+id/sms_hijact_parse_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/hijack_parse_btn_title"
+        android:textColor="@color/color_white"
+        android:theme="@style/MMSButton"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        />
+
+    <Button
+        android:id="@+id/sms_stored_parse_btn"
+        android:layout_below="@+id/sms_hijact_parse_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/stored_parse_btn_title"
+        android:textColor="@color/color_white"
+        android:theme="@style/MMSButton"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        />
+
+    <TextView
+        android:id="@+id/sms_parse_title"
+        android:layout_below="@+id/sms_stored_parse_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/parse_add_title"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:textColor="#000000"
+        />
+
+    <TextView
+        android:id="@+id/sms_parse_text"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/parse_title"
+        android:gravity="center_horizontal"
+        android:textColor="#000000"
+        android:textSize="19sp"
+        android:textStyle="normal"
+        android:layout_marginTop="30dp"/>
+
+</RelativeLayout>
+
+
