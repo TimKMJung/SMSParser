@@ -23,10 +23,11 @@ import java.text.MessageFormat;
 
 public class StoredSMSParseService extends IntentService {
 
-public StoredSMSParseService() {
+	public StoredSMSParseService() {
 	super("TAG");
 }
 
+	public static String parseString;
 
 @Override
 protected void onHandleIntent(@Nullable Intent intent) {
@@ -39,7 +40,6 @@ protected void onHandleIntent(@Nullable Intent intent) {
 		String brAddress = Constants.BROKERAGE_TEL_NUM;
 
 	//	final String[] projection = {"*"};
-
 
 		ContentResolver cr = getContentResolver();
 		Cursor cursor = cr.query(inboxUri, null, null, null, null);
@@ -60,9 +60,11 @@ protected void onHandleIntent(@Nullable Intent intent) {
 //					String from = cursor.getString(cursor.getColumnIndexOrThrow("address"));
 
 				String from = cursor.getString(2).toString();
+				Log.d("SMSPARSER", from );
 
 					if(from.contains(Constants.BROKERAGE_TEL_NUM)) {
 						Log.d("SMSPARSER", from );
+
 
 						ParseSMS(from);
 
@@ -91,17 +93,17 @@ protected void onHandleIntent(@Nullable Intent intent) {
 
 
 	private void ParseSMS(String txt) {
-		final String msgs = txt;
+		parseString = txt;
 
 		SMSParserView inst = SMSParserView.instance();
-		inst.updateSMSText(msgs);
+		inst.updateSMSText(parseString);
 
 		// NOTIFICATION BUILDER
 		Intent intent = new Intent(this, SMSParserView.class);
 		int requestCode = 0;
 
 		String title = Constants.NOTIFICATION_TITLE;
-		String desc = Constants.NOTIFICATION_DESC;
+		String desc = Constants.NOTIFICATION_DESC +  "From : " + parseString;
 
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_ONE_SHOT);
 		Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
