@@ -28,7 +28,7 @@
         </receiver>
 
         <service
-            android:name="android.ssoim.com.smsparser.views.StoredSMSParseService"
+            android:name="android.ssoim.com.smsparser.services.StoredSMSParseService"
             android:exported="false">
         </service>
 

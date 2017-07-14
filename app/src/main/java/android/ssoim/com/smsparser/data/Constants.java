@@ -8,7 +8,8 @@ public class Constants {
 
     public static String TAG = "Code Artist";
     public static String SMS_CONTENT_HEADER= "[Web발신]";
-    public static String BROKERAGE_TEL_NUM = "015776000";
+//    public static String FROM_TEL_NUM = "015776000";
+    public static String FROM_TEL_NUM = "*YOUR SPECIFIC TEL NUMBER*";
 //    public static String SMS_CONTENT_HEADER= "*YOUR SPECIFIC STRING*";
 
     public static String SMS_PARSE_HEADER_FIELD= "content://sms/inbox";

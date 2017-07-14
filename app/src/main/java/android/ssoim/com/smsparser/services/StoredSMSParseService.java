@@ -1,4 +1,4 @@
-package android.ssoim.com.smsparser.views;
+package android.ssoim.com.smsparser.services;
 
 import android.app.IntentService;
 import android.app.NotificationManager;
@@ -11,6 +11,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.ssoim.com.smsparser.R;
 import android.ssoim.com.smsparser.data.Constants;
+import android.ssoim.com.smsparser.views.SMSParserView;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -24,7 +25,7 @@ import java.text.MessageFormat;
 public class StoredSMSParseService extends IntentService {
 
 	public StoredSMSParseService() {
-	super("TAG");
+	super("Code Artist");
 }
 
 	public static String parseString;
@@ -35,9 +36,8 @@ protected void onHandleIntent(@Nullable Intent intent) {
 }
 
 	public void ScanAndParseSMS() {
-
 		Uri inboxUri = Uri.parse(Constants.SMS_PARSE_HEADER_FIELD);
-		String brAddress = Constants.BROKERAGE_TEL_NUM;
+		String brAddress = Constants.FROM_TEL_NUM;
 
 	//	final String[] projection = {"*"};
 
@@ -62,7 +62,7 @@ protected void onHandleIntent(@Nullable Intent intent) {
 				String from = cursor.getString(2).toString();
 				Log.d("SMSPARSER", from );
 
-					if(from.contains(Constants.BROKERAGE_TEL_NUM)) {
+					if(from.contains(Constants.FROM_TEL_NUM)) {
 						Log.d("SMSPARSER", from );
 
 
@@ -95,8 +95,8 @@ protected void onHandleIntent(@Nullable Intent intent) {
 	private void ParseSMS(String txt) {
 		parseString = txt;
 
-		SMSParserView inst = SMSParserView.instance();
-		inst.updateSMSText(parseString);
+//		SMSParserView inst = SMSParserView.instance();
+//		inst.updateSMSText(parseString);
 
 		// NOTIFICATION BUILDER
 		Intent intent = new Intent(this, SMSParserView.class);

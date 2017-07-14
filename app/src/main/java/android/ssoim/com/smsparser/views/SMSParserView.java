@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.ssoim.com.smsparser.R;
 import android.ssoim.com.smsparser.services.SMSHijackParseService;
+import android.ssoim.com.smsparser.services.StoredSMSParseService;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 public class SMSParserView extends AppCompatActivity {
 
     public SMSHijackParseService mSMSHijackParseService;
+    public StoredSMSParseService mStoredSMSParseService;
     private Button hijackBtn = null;
     private Button storedParseBtn = null;
     private TextView smsText = null;
@@ -39,7 +42,7 @@ public class SMSParserView extends AppCompatActivity {
 
         init();
 
-        requestSmsPermission();
+//        requestSmsPermission();
 
     }
 
@@ -51,7 +54,7 @@ public class SMSParserView extends AppCompatActivity {
 
         mSMSHijackParseService = new SMSHijackParseService();
 
-        requestSmsPermission();
+        requestStoredSmsPermission();
 
         setButton();
 
@@ -62,6 +65,11 @@ public class SMSParserView extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter();
         registerReceiver(mSMSHijackParseService, intentFilter);
     }
+
+//    private void addStoredSMSReceiver() {
+//        IntentFilter intentFilter = new IntentFilter();
+//        registerReceiver(mStoredSMSParseService, intentFilter);
+//    }
 
     private void startParseSMSService() {
         Intent mServiceIntent = new Intent(this, StoredSMSParseService.class);
@@ -81,9 +89,24 @@ public class SMSParserView extends AppCompatActivity {
         storedParseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestHijackSmsPermission();
+                startParseSMSService();
+
+                setParseTxt();
             }
         });
+
+    }
+
+    private void setParseTxt() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String parse = StoredSMSParseService.parseString;
+                smsText.setText(parse);
+            }
+        }, 1500);
+
 
     }
 
@@ -96,10 +119,9 @@ public class SMSParserView extends AppCompatActivity {
             permission_list[0] = permission;
             ActivityCompat.requestPermissions(this, permission_list, 1);
         }
-
     }
 
-    private void requestHijackSmsPermission() {
+    private void requestStoredSmsPermission() {
         String permission = Manifest.permission.READ_SMS;
         int grant = ContextCompat.checkSelfPermission(this, permission);
         if (grant != PackageManager.PERMISSION_GRANTED) {
@@ -107,9 +129,10 @@ public class SMSParserView extends AppCompatActivity {
             permission_list[0] = permission;
             ActivityCompat.requestPermissions(this, permission_list, 1);
 
-        } else {
-            startParseSMSService();
         }
+// else {
+////            startParseSMSService();
+//        }
     }
 
 }
